@@ -2,11 +2,12 @@ clear
 load('only_rubber.mat')
 m = 0.52; % kg
 c = 3.4231; % N/m
+c_osc = 3.0603;
 g = 9.815;
-w = sqrt(c/m); % 1/s
+w = sqrt(c_osc/m); % 1/s
 
 tau = 0.001; % step
-tspan = [0; 160]; %s
+tspan = [0; 180]; %s
 
 % initial values
 % for rubber delta
@@ -87,7 +88,6 @@ while t < tspan(2)
 
     sol(:,i) = [ t; u ];
     shift(i) = x_e(ampl, t, max);
-    temp_fi(i) = fi(c, ampl, max);
     
     if sol(3,i-1)*sol(3,i) < 0
         j = j + 0.5;
@@ -103,8 +103,7 @@ fin = sol(2,:) + shift;    %0.001126*z.^6 + 0.002285*z.^5 + 0.0004883*z.^4 + 0.0
 
 figure(1)
 %plot(sol(1,:), sol(2,:), 'b', time, deltaLenghtRubber, 'g', sol(1,:), fin, 'r')
-%plot(time, deltaLenghtRubber, 'g', sol(1,:), shift, 'r', sol(1,:), fin)
-plot(sol(1,:), sol(2,:), sol(1,:), temp_fi)
+plot(time, deltaLenghtRubber, 'g', sol(1,:), shift, 'r', sol(1,:), fin)
 grid on
 grid minor
     
