@@ -1,11 +1,15 @@
 function x_e = x_e( ampl, t )
 
 m = 0.52; % kg
-c = 3.4231; % N/m
-c_osc = 3.0603;
+c = 3.437; % N/m
 g = 9.815;
-w = sqrt(c_osc/m); % 1/s
 
-x_e = m*g/c - 0.128 * exp( -c*2*pi*w*t/( c_osc*fi(ampl) ) );
+k = 40;
+if(t <= 39)
+    x_e = m*g/c - 0.122 * exp( -c*t/( k ) );
+else 
+    x_e = 0.00030*tspan2 + 1.469;
+end
+
 end
 
