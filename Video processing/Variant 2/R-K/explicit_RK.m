@@ -12,7 +12,7 @@ tspan = [0; 80]; %s
 % initial values
 % for rubber delta
 x0 = 2.51457398273736;
-ksi0 = x0 - x_e(0.1, tspan(1)); % time is 0
+ksi0 = x0 - x_e(tspan(1)); % time is 0
 u0 = [ksi0; -1.37497924957696];
 
 ampl = -6; % initial amplitude of the cycle (guess), m
@@ -21,7 +21,7 @@ eps = 0.001; % difference for ampl
 % Matrix to save solution
 sol = zeros(3,1);
 sol(:,1) = [ tspan(1); u0 ];
-%shift(1) = x_e(0.1, tspan(1));
+shift(1) = x_e(tspan(1));
 
 u = u0;
 t = tspan(1);
@@ -42,7 +42,7 @@ while true;
     t = t + tau;
 
     sol(:,i) = [ t; u ];
-    %shift(i) = x_e(ampl, t);
+    shift(i) = x_e(t);
     
     % if max or min
     if sol(3,i-1)*sol(3,i) < 0
@@ -74,7 +74,7 @@ while t < tspan(2)
     t = t + tau;
 
     sol(:,i) = [ t; u ];
-    %shift(i) = x_e(ampl, t);
+    shift(i) = x_e(t);
     
     if sol(3,i-1)*sol(3,i) < 0
         j = j + 0.5;
@@ -88,10 +88,10 @@ end
 
 %z = (sol(1,:) - 38.66)/22.33;
 
-%fin = sol(2,:) + shift;    %0.001126*z.^6 + 0.002285*z.^5 + 0.0004883*z.^4 + 0.0007962*z.^3 - 0.009244*z.^2 + 0.01409*z + 1.481;
+fin = sol(2,:) + shift;    %0.001126*z.^6 + 0.002285*z.^5 + 0.0004883*z.^4 + 0.0007962*z.^3 - 0.009244*z.^2 + 0.01409*z + 1.481;
 
 figure(1)
-plot(time, deltaLenghtRubber, 'g', sol(1,:), sol(2,:))
+plot(time, deltaLenghtRubber, 'g', sol(1,:), fin)
 
 grid on
 grid minor
