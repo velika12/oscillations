@@ -1,4 +1,4 @@
-clear
+%clear
 load('only_rubber.mat')
 m = 0.52; % kg
 c = 3.4231; % N/m
@@ -88,9 +88,9 @@ end
 
 %z = (sol(1,:) - 38.66)/22.33;
 
-fin = sol(2,:) + shift;    %0.001126*z.^6 + 0.002285*z.^5 + 0.0004883*z.^4 + 0.0007962*z.^3 - 0.009244*z.^2 + 0.01409*z + 1.481;
+fin0 = sol(2,:) + shift;    %0.001126*z.^6 + 0.002285*z.^5 + 0.0004883*z.^4 + 0.0007962*z.^3 - 0.009244*z.^2 + 0.01409*z + 1.481;
 
-figure(1)
+figure(2)
 plot(time, deltaLenghtRubber, 'g', sol(1,:), fin)
 
 grid on
