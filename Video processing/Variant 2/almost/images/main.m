@@ -1,4 +1,5 @@
 clear
+
 % Area we need to process
 x = [100 1900];
 y = [320 600];
@@ -22,34 +23,34 @@ time = time .* (1/29.9701);
 
 % Preallocate vectors
 midValue = zeros(1, Nmax - Nmin + 1);
-% medValue = zeros(1, Nmax - Nmin + 1);
 
 for num = Nmin:Nmax
-    A = imread(['.\Video02\In-data\Frames\img' mat2str(num) '.jpg']);
+    A = imread(['..\..\Video02\In-data\Frames\img' mat2str(num) '.jpg']);
     
     % Localizaton of the label in the picture
     B = getColorArray(A,x,y,cmp1,cmp2);
     
     % Writing into the file to see what we've got
-    %imwrite(B, ['.\Video02\Out-data\ResultFrames\img' mat2str(num) '.jpg']);
+    %imwrite(B, ['..\..\Video02\Out-data\ResultFrames\img' mat2str(num) '.jpg']);
     
     % If we already have resulting images, we put them into B
-    %B = imread(['.\Video02\Out-data\ResultFrames\img' mat2str(num) '.jpg']);
+    %B = imread(['..\..\Video02\Out-data\ResultFrames\img' mat2str(num) '.jpg']);
     
     % Searching for the coordinate of center of mass on the label
     % Conveting to the gray colors (we need a 2-dim array)
     C = rgb2gray(B);
     % Find coordinates of all array values that are not equal to zero
     [r, c] = find(C);
-    % Calculation of middle value over the coordinates
-    midValue(num-Nmin+1) = mean(c);
-    %medValue(num-Nmin+1) = median(c);
     
-    % Find max and min value of vector c and get the middle point
-%     c_min = min(c);
-%     c_max = max(c);
-%     midValue(num-Nmin+1) = c_min + 0.5*(c_max-c_min);
+    % Get the middle point as mean value over all not black points
+%     midValue(num-Nmin+1) = mean(c);
+%     medValue(num-Nmin+1) = median(c);
     
+    min_ = min(c);
+    max_ = max(c);
+    
+    midValue(num-Nmin+1) = min_ + 0.5*(max_-min_);
+
     % Percent
      p = (num - Nmin)*100/(Nmax-Nmin);
      if p_temp ~= floor(p/5)*5
@@ -57,4 +58,3 @@ for num = Nmin:Nmax
         disp(['Status: ',num2str(p_temp),'%']);
      end
 end
-%disp(['Status: ',num2str(i),'%']);
