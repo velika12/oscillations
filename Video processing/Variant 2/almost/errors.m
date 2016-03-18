@@ -21,5 +21,5 @@ sigma_h = h * sqrt( ( sigma_l_px / h_px )^2 + ( sigma_scale / scale )^2 ); % m
 
 sigma_deltaLengthRubber = sqrt( sigma_midValueM.^2 + sigma_dL^2 + sigma_h^2 + sigma_L0^2 ); % m
 
-subplot(2,1,2);
-plot(time, sigma_deltaLengthRubber)
+% subplot(2,1,2);
+% plot(time, sigma_deltaLengthRubber)
