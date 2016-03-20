@@ -4,14 +4,23 @@ function Ampl = getMaxAmpl( y, time )
 % Ampl(1,2)=time(1);
 % j = 2;
 j = 1;
+i = 2;
 
 %Get all maximums except the initial (initial deviation), the second column is time
-for i=2:size(y,2)-1
-    if(y(i)>y(i-1)&&y(i)>=y(i+1))
-        Ampl(j,1)=y(i);
-        Ampl(j,2)=time(i);
-        j=j+1;
+while i < size(y,2)
+    if( y(i) > y(i-1) && y(i) >= y(i+1) )
+        c = 0;
+        while y(i+c+1) == y(i)
+            c = c + 1;
+        end
+        
+        Ampl(j,1) = y( i + fix((c+1)/2) );
+        Ampl(j,2) = time( i + fix((c+1)/2) );
+        
+        j = j + 1;
+        i = i + c;
     end
+    i = i+1;
 end
 
 end

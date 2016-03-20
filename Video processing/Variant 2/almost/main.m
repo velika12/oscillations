@@ -35,9 +35,9 @@ A_min_t(22,:) = [];
 A_min_t(23,:) = [];
 
 figure
-plot(A_max_t(:,2), A_max_t(:,1), 'x')
+plot(A_max_t(:,2), A_max_t(:,1), 'x', time, deltaLengthRubber)
 figure
-plot(A_min_t(:,2), A_min_t(:,1), 'x')
+plot(A_min_t(:,2), A_min_t(:,1), 'x', time, deltaLengthRubber)
 
 % Calculate the period from experimental data
 period = ( sum( diff( A_max_t(:,2) ) ) + sum( diff( A_min_t(:,2) ) ) ) / ( size( A_max_t(:,2),1 ) + size( A_min_t(:,2),1 ) - 2 );
