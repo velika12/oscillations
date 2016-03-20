@@ -21,5 +21,29 @@ sigma_h = h * sqrt( ( sigma_l_px / h_px )^2 + ( sigma_scale / scale )^2 ); % m
 
 sigma_deltaLengthRubber = sqrt( sigma_midValueM.^2 + sigma_dL^2 + sigma_h^2 + sigma_L0^2 ); % m
 
+% figure
+% subplot(2,1,1);
+% plot(time, deltaLengthRubber, time, deltaLengthRubber - sigma_deltaLengthRubber, '-.', time, deltaLengthRubber + sigma_deltaLengthRubber, '-.')
 % subplot(2,1,2);
 % plot(time, sigma_deltaLengthRubber)
+
+min_sigma_deltaLengthRubber = min(sigma_deltaLengthRubber);
+max_sigma_deltaLengthRubber = max(sigma_deltaLengthRubber);
+
+sigma_y_up = max_sigma_deltaLengthRubber;
+sigma_y_down = max_sigma_deltaLengthRubber;
+
+sigma_y_e = 0.5*sqrt( sigma_y_up^2 + sigma_y_down^2 );
+
+% Plot analytic function and compare it to the experiment data + errors
+shift = zeros(1, size(time, 2));
+for i = 1:size(time, 2);
+    shift(i) = y_e_analytical(time(i));
+end
+
+figure
+plot(time, y_e, 'g', time, y_e - sigma_y_e, '-.', time, y_e + sigma_y_e, '-.', time, shift)
+
+
+
+
