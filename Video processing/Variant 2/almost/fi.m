@@ -1,6 +1,8 @@
 function fi = fi( ampl )
 
-c_osc = 3.0603; % N/m
+global c_osc
+
+% c_osc = 3.0603; % N/m
 
 if ampl == 0 % we consider these oscillations ideal
     fi = 0;

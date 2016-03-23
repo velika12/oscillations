@@ -3,7 +3,7 @@ function Ampl = getMinAmpl( y, time )
 j = 1;
 i = 2;
 %Get all minimums, the second column is time
-while i < size(y,2)
+while i < size(y,1)
     if y(i) < y(i-1) && y(i) <= y(i+1) 
         c = 0;
         while y(i+c+1) == y(i)

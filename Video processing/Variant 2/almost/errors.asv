@@ -14,10 +14,7 @@ sigma_midValue = 13; % px, radius of lamp
 sigma_midValueM = midValueM .* sqrt( ( sigma_midValue ./ midValue ).^2 + ( sigma_scale / scale )^2 );
 
 sigma_L0 = 0.5 * 10^(-2); % m
-
-% TODO: measure more accurate!!!!!!!!!!!!
 sigma_S = 3 * 10^(-6); % m
-
 sigma_L1 = 0.5 * 10^(-2); % m
 
 sigma_L2 = L2 * sqrt( ( sigma_l_px / L2_px )^2 + ( sigma_scale / scale )^2 ); % m
@@ -68,11 +65,11 @@ sigma_A_min = getFuncInAmplPoints(time, A_min_t, sigma_deltaLengthRubber);
 sigma_a_max = sqrt( sigma_A_max.^2 + sigma_y_e^2 );
 sigma_a_min = sqrt( sigma_A_min.^2 + sigma_y_e^2 );
 
-sigma_eps_max = eps_max_t(:,1) .* sqrt( (sigma_a_max ./ a_max_t(:,1)).^2 + (sigma_L0 / L0)^2 );
-sigma_eps_min = eps_min_t(:,1) .* sqrt( (sigma_a_min ./ a_min_t(:,1)).^2 + (sigma_L0 / L0)^2 );
+sigma_eps_max = eps_max_t(:,1) * sqrt( (sigma_a_max / a_max_t(:,1)).^2 + (sigma_L0 / L0)^2 );
+sigma_eps_min = eps_min_t(:,1) * sqrt( (sigma_a_min / a_min_t(:,1)).^2 + (sigma_L0 / L0)^2 );
 
-sigma_psi_max = sqrt( 0.25 * ( eps_max_t(1:size(eps_max_t,1)-1, 1).^2 - eps_max_t(2:size(eps_max_t,1), 1).^2 ).^2 * sigma_E^2 + E^2 * ( eps_max_t(1:size(eps_max_t,1)-1, 1).^2 .* sigma_eps_max(1:size(sigma_eps_max,1)-1).^2 + eps_max_t(2:size(eps_max_t,1), 1).^2 .* sigma_eps_max(2:size(sigma_eps_max,1)).^2 ) );
-sigma_psi_min = sqrt( 0.25 * ( eps_min_t(1:size(eps_min_t,1)-1, 1).^2 - eps_min_t(2:size(eps_min_t,1), 1).^2 ).^2 * sigma_E^2 + E^2 * ( eps_min_t(1:size(eps_min_t,1)-1, 1).^2 .* sigma_eps_min(1:size(sigma_eps_min,1)-1).^2 + eps_min_t(2:size(eps_min_t,1), 1).^2 .* sigma_eps_min(2:size(sigma_eps_min,1)).^2 ) );
+sigma_psi_max = sqrt( 0.25 * ( eps_max_t(1:size(eps_max_t,1)-1, 1).^2 - eps_max_t(2:size(eps_max_t,1), 1).^2 ).^2 * sigma_E^2 + E^2 * ( eps_max_t(1:size(eps_max_t,1)-1, 1).^2 .* sigma_eps_max(1:size(sigma_eps_max,1)-1).^2 + eps_max_t(2:size(eps_max_t,1), 1).^2 .* sigma_a_max(2:size(sigma_a_max,1)).^2 ) );
+sigma_psi_min = sqrt( 0.25 * ( a_min_t(1:size(a_min_t,1)-1, 1).^2 - a_min_t(2:size(a_min_t,1), 1).^2 ).^2 * sigma_c_osc^2 + c_osc^2 * ( a_min_t(1:size(a_min_t,1)-1, 1).^2 .* sigma_a_min(1:size(sigma_a_min,1)-1).^2 + a_min_t(2:size(a_min_t,1), 1).^2 .* sigma_a_min(2:size(sigma_a_min,1)).^2 ) );
 
 
 % Place sigma_a_ in one vector
@@ -89,7 +86,7 @@ sigma_psi_min = sqrt( 0.25 * ( eps_min_t(1:size(eps_min_t,1)-1, 1).^2 - eps_min_
 sigma_psi = [sigma_psi_max; sigma_psi_min];
 
 figure
-errorbar(eps_t(:,1), psi, sigma_psi, '*')
+errorbar(a_t(:,1), psi, sigma_psi, '*')
 
 
 
